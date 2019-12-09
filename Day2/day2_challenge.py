@@ -1,7 +1,28 @@
-import os
-import numpy as np 
+# GAP => Gravitiy Assist Program 
+def read_GAP_data(file):
+    with open(file) as f:
+        return list(map(int, f.read().split(',')))
 
-data = np.loadtxt("day2_input.txt", dtype=str, comments="#", delimiter=",", unpack=False)
+def run_program(program, param1, param2):
+    program[1] = param1
+    program[2] = param2
+    pc = 0
+    while pc < len(program):
+        opcode = program[pc]
+        op1 = program[program[pc + 1]]
+        op2 = program[program[pc + 2]]
+        dest = program[pc + 3]
+        if opcode == 1 or opcode == 2:
+            program[dest] = op1 + op2 if opcode == 1 else op1 * op2
+            pc += 4
+        elif opcode == 99:
+            break
+        else:
+            print('Encountering an unknown opcode!')
+            break
+    return program[0]
 
-print(data)
+def output():
+    return run_program(read_GAP_data('day2_input'), 12, 2)
 
+print(output())
