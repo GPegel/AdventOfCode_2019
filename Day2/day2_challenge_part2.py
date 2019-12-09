@@ -1,28 +1,42 @@
-# GAP => Gravitiy Assist Program 
-def read_GAP_data(file):
-    with open(file) as f:
-        return list(map(int, f.read().split(',')))
+# GAP => Gravity Assist Program
 
-def run_program(program, noun, verb):
-    program[1] = noun
-    program[2] = verb
-    pc = 0
-    while pc < len(program):
-        opcode = program[pc]
-        op1 = program[program[pc + 1]]
-        op2 = program[program[pc + 2]]
-        dest = program[pc + 3]
-        if opcode == 1 or opcode == 2:
-            program[dest] = op1 + op2 if opcode == 1 else op1 * op2
-            pc += 4
-        elif opcode == 99:
-            break
-        else:
-            print('Encountering an unknown opcode!')
-            break
-    return program[0]
+def read_input():
+    with open("day2_input") as f:
+        global GAP
+        GAP = list(map(int, f.readline().split(",")))
 
-def output():
-    return run_program(read_GAP_data('day2_input'), 12, 2)
+def run_GAP():
+    opcode_id = 0
+    number1 = 1
+    number2 = 2
+    result = 3
+    opcode = GAP[opcode_id]
 
-print(output())
+    while opcode != 99:
+
+        if opcode == 1:
+            GAP[GAP[result]] = (GAP[GAP[number1]] + GAP[GAP[number2]])
+
+        elif opcode == 2:
+            GAP[GAP[result]] = (GAP[GAP[number1]] * GAP[GAP[number2]])
+
+        opcode_id += 4
+        number1 += 4
+        number2 += 4
+        result += 4
+        opcode = GAP[opcode_id]
+
+    return GAP[0]
+
+def calc_GAP():
+    for noun in range(100):
+        for verb in range(100):
+            read_input()
+            GAP[1] = noun
+            GAP[2] = verb
+            output = run_GAP()
+            if output == 19690720:
+                return noun * 100 + verb
+
+if __name__ == "__main__":
+    print(calc_GAP())
