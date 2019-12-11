@@ -7,4 +7,5 @@ def generate_wire(instr_line):
 with open('input', 'r') as f:
     wires = [list(generate_wire(line)) for line in f.readlines()]
 intersections = set(wires[0]) & set(wires[1])
-print(min(abs(x)+abs(y) for (x, y) in intersections))
+print(min(abs(x)+abs(y) for (x, y) in intersections)) #Part 1
+print(2 + min(sum(wire.index(intersect) for wire in wires) for intersect in intersections)) #Part 2
