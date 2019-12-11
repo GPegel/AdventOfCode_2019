@@ -16,3 +16,19 @@
 # How many different passwords within the range given in your puzzle input meet these criteria?
 
 # Your puzzle input is 367479-893698.
+
+input = [3, 6, 7, 4, 7, 9, 8, 9, 3, 6, 9, 8]
+
+input.sort()
+
+print ("The sorted list is : " +  str(input))
+
+dedup = [] 
+for i in input: 
+    if i not in dedup: 
+        dedup.append(i) 
+
+print ("The list after removing duplicates : " + str(dedup))
+
+
+print ("\n" "This is a WIP so I will continue on this one soon...")  
